@@ -64,6 +64,46 @@ class CallScreenRobot : ScreenRobot<CallScreenRobot>() {
         return this
     }
 
+    fun showLocalParticipantPip(): CallScreenRobot {
+        waitUntilViewIdIsDisplayedWhileCheckingForDialog(R.id.azure_communication_ui_call_local_pip)
+        return this
+    }
+
+    fun showSwitchCameraButton(): CallScreenRobot {
+        waitUntilViewIdIsDisplayedWhileCheckingForDialog(R.id.azure_communication_ui_call_local_pip_switch_camera_button)
+        return this
+    }
+
+    fun showRemoteParticipantAvatar(): CallScreenRobot {
+        waitUntilViewIdIsDisplayedWhileCheckingForDialog(R.id.azure_communication_ui_participant_avatar_view_container)
+        return this
+    }
+
+    fun showRemoteParticipantVideoViewDisplayName(): CallScreenRobot {
+        waitUntilViewIdIsDisplayedWhileCheckingForDialog(R.id.azure_communication_ui_participant_view_on_video_display_name)
+        return this
+    }
+
+    fun showRemoteParticipantVideoViewMicIndicator(): CallScreenRobot {
+        waitUntilViewIdIsDisplayedWhileCheckingForDialog(R.id.azure_communication_ui_participant_view_on_video_mic_indicator)
+        return this
+    }
+
+    fun showRemoteParticipantAudioViewDisplayName(): CallScreenRobot {
+        waitUntilViewIdIsDisplayedWhileCheckingForDialog(R.id.azure_communication_ui_participant_audio_view_display_name)
+        return this
+    }
+
+    fun showRemoteParticipantAudioViewMicIndicator(): CallScreenRobot {
+        waitUntilViewIdIsDisplayedWhileCheckingForDialog(R.id.azure_communication_ui_participant_audio_view_mic_indicator)
+        return this
+    }
+
+    fun showRemoteParticipantGrid(): CallScreenRobot {
+        waitUntilViewIdIsDisplayedWhileCheckingForDialog(R.id.azure_communication_ui_call_participant_container)
+        return this
+    }
+
     fun dismissParticipantList(): CallScreenRobot {
         val rootView = Espresso.onView(
             Matchers.allOf(
@@ -103,6 +143,11 @@ class CallScreenRobot : ScreenRobot<CallScreenRobot>() {
             R.id.cell_text,
             userName
         )
+        return this
+    }
+
+    fun sleep(): CallScreenRobot  {
+        Thread.sleep(20000)
         return this
     }
 }

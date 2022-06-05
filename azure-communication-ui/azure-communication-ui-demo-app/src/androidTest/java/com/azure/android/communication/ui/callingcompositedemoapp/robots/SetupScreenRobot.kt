@@ -111,6 +111,31 @@ class SetupScreenRobot : ScreenRobot<SetupScreenRobot>() {
         return this
     }
 
+    fun turnCameraOff(videoOffText: String = Localize.English.videoOffText): SetupScreenRobot {
+        UiTestUtils.run {
+            val viewDisplayResource = ViewIsDisplayedResource()
+            Thread.sleep(4000)
+            waitUntilViewIdIsDisplayed(
+                R.id.azure_communication_ui_setup_camera_button,
+                viewDisplayResource
+            )
+
+            val cameraButtonText =
+                getTextFromButtonView(R.id.azure_communication_ui_setup_camera_button)
+            if (cameraButtonText != videoOffText) {
+                clickViewWithIdAndText(
+                    R.id.azure_communication_ui_setup_camera_button,
+                    cameraButtonText
+                )
+            }
+            waitUntilViewIdIsDisplayed(
+                R.id.azure_communication_ui_setup_default_avatar,
+                viewDisplayResource
+            )
+        }
+        return this
+    }
+
     @Throws(RuntimeException::class)
     fun clickJoinCallButton(): CallScreenRobot {
         val idlingResource = ViewIsDisplayedResource()

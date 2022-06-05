@@ -16,10 +16,11 @@ fi
 cd ..
 setLocalProperty "USER_NAME" "Test User"
 #Replace ACS Token with expired token
-setLocalProperty "ACS_TOKEN" "$1"
+setLocalProperty "ACS_TOKEN_EXPIRED" "$1"
 
 # run Ui tests with the required parameters
-./gradlew clean connectedCallingDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.expiredToken=$1 -Pandroid.testInstrumentationRunnerArguments.teamsUrl="$2" -Pandroid.testInstrumentationRunnerArguments.groupId="$3" -Pandroid.testInstrumentationRunnerArguments.acsToken=$4 -Pandroid.testInstrumentationRunnerArguments.tokenFunctionUrl=$5
+./gradlew clean build
+./gradlew connectedCallingDebugAndroidTest --stacktrace -Pandroid.testInstrumentationRunnerArguments.class=com.azure.android.communication.ui.callingcompositedemoapp.CallingCompositeBaselineUiTest#testJoinGroupCallWithVideoDisabled -Pandroid.testInstrumentationRunnerArguments.teamsUrl="$2" -Pandroid.testInstrumentationRunnerArguments.tokenFunctionUrl="$3"
 
 # clean up
 if [ -z "$DEVICE" ]; then
