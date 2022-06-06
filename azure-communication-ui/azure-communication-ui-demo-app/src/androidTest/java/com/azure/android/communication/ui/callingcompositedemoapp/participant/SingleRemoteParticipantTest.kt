@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class SingleRemoteParticipantTest : BaseUiTest() {
-    private val identifier: String = "e1c3f490-e4fc-11ec-86f7-e50b7e8d7088"
+    private val identifier: String = "e1c3f490-e4fc-11ec-86f7-e50b7e8d7090"
 
     @get:Rule
     val screenLockRule = RunWhenScreenOffOrLockedRule()
