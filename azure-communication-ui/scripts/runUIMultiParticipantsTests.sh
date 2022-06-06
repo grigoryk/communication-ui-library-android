@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
-
 unset ANDROID_SERIAL
+
+
+if [ -z "$DEVICE" ]; then
+  ./installEmulatorWithArgs.sh first_emulator
+  ./installEmulatorWithArgs.sh second_emulator
+fi
 
 setLocalProperty() {
   cat ./local.properties | sed -e "/^$1=/d" > ./temp_file
@@ -16,10 +21,11 @@ setLocalProperty "ACS_TOKEN_EXPIRED" "$1"
 DEVICE1=($(adb devices | grep "device$" | head -1 | sed -e "s|device||g"))
 DEVICE2=($(adb devices | grep "device$" | tail -1 | sed -e "s|device||g"))
 
-./gradlew clean build
+./gradlew clean assembleDebug
+
 export ANDROID_SERIAL=$DEVICE1
 ./gradlew connectedCallingDebugAndroidTest --stacktrace -Pandroid.testInstrumentationRunnerArguments.class=com.azure.android.communication.ui.callingcompositedemoapp.participant.SingleRemoteParticipantTest#testJoinGroupCallWithVideoOffAndRemoteParticipantVideoOn -Pandroid.testInstrumentationRunnerArguments.teamsUrl="$2" -Pandroid.testInstrumentationRunnerArguments.tokenFunctionUrl="$3" &
-sleep 20
+sleep 40
 export ANDROID_SERIAL=$DEVICE2 
 ./gradlew connectedCallingDebugAndroidTest --stacktrace -Pandroid.testInstrumentationRunnerArguments.class=com.azure.android.communication.ui.callingcompositedemoapp.participant.SingleRemoteParticipantTest#testJoinGroupCallWithVideoOnAndRemoteParticipantVideoOff -Pandroid.testInstrumentationRunnerArguments.teamsUrl="$2" -Pandroid.testInstrumentationRunnerArguments.tokenFunctionUrl="$3" &
 wait
