@@ -147,7 +147,7 @@ class CallScreenRobot : ScreenRobot<CallScreenRobot>() {
     }
 
     fun sleep(): CallScreenRobot  {
-        Thread.sleep(20000)
+        Thread.sleep(40000)
         return this
     }
 }
