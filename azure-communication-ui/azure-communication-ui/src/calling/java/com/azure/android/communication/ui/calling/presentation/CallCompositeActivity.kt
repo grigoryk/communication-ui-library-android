@@ -30,6 +30,7 @@ import com.azure.android.communication.ui.calling.presentation.navigation.BackNa
 import com.azure.android.communication.ui.calling.redux.action.CallingAction
 import com.azure.android.communication.ui.calling.redux.state.NavigationStatus
 import com.microsoft.fluentui.util.activity
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
@@ -223,6 +224,7 @@ internal class CallCompositeActivity : AppCompatActivity() {
                 store.end()
                 callingMiddlewareActionHandler.dispose()
                 videoViewManager.destroy()
+                lifecycleScope.cancel()
                 finish()
             }
             NavigationStatus.IN_CALL -> {
