@@ -33,6 +33,9 @@ import com.azure.android.communication.ui.calling.presentation.navigation.BackNa
 
 internal class CallingFragment :
     Fragment(R.layout.azure_communication_ui_calling_call_fragment), BackNavigation, SensorEventListener {
+    companion object {
+        private const val LEAVE_CONFIRM_VIEW_KEY = "ParticipantListView.State"
+    }
 
     // Get the DI Container, which gives us what we need for this fragment (dependencies)
     private val holder: DependencyInjectionContainerHolder by activityViewModels()
@@ -194,6 +197,21 @@ internal class CallingFragment :
 
     override fun onBackPressed() {
         requestCallEnd()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(LEAVE_CONFIRM_VIEW_KEY, confirmLeaveOverlayView.isShowing())
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        savedInstanceState?.let {
+            if (it.getBoolean(LEAVE_CONFIRM_VIEW_KEY)) {
+                viewModel.getConfirmLeaveOverlayViewModel().requestExitConfirmation()
+            }
+        }
     }
 
     private fun requestCallEnd() {
