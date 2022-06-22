@@ -64,7 +64,7 @@ internal class AudioDeviceListView(
         bottomCellAdapter.setBottomCellItems(mutableListOf())
         deviceTable.layoutManager = null
         if (audioDeviceDrawer.isShowing) {
-            audioDeviceDrawer.dismissDialog()
+            audioDeviceDrawer.dismiss()
             viewModel.displayAudioDeviceSelectionMenu()
         }
         this.removeAllViews()
