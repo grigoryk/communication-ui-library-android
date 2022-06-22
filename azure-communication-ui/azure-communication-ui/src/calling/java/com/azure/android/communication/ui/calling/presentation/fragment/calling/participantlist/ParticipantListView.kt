@@ -85,6 +85,7 @@ internal class ParticipantListView(
         participantTable.layoutManager = null
         if (participantListDrawer.isShowing) {
             participantListDrawer.dismiss()
+            participantListDrawer.dismissDialog()
         }
         this.removeAllViews()
     }
